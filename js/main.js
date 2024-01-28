@@ -1,4 +1,33 @@
 /// <reference types="../@types/jquery"/> 
+// start media //
+window.addEventListener('resize', function() {
+    updatePadding();
+  });
+  
+  function updatePadding() {
+    var searchContainer = document.getElementById('searchContainer');
+  
+   
+    if (window.innerWidth <= 767) {
+      searchContainer.style.paddingLeft = '0';
+    } else {
+      searchContainer.style.paddingLeft = '70px';
+    }
+  }
+  
+  updatePadding();
+  
+// End media //
+// Start loading//
+$(
+    searchByAll("").then(()=>{
+            $(".loading").fadeOut(500,function(){
+                $("body").css('overflow','auto');
+                $(".inner-loading").fadeOut(500);
+            });   })
+    );
+
+// End loading//
 let row=document.getElementById("searchMealsRow");
 let searchInputsRow=document.getElementById("searchInputsRow");
 function closeSidenav(){
@@ -28,8 +57,25 @@ $('.side-nav i.open-close-tab').on('click',()=>{
     }
  
 })
- 
+/////////////////////////////////////////// 
+const navLinks = document.querySelectorAll(".navbar-bottom li");
+navLinks.forEach(link => {
+  link.addEventListener("click", function(event) {
+   
+    event.preventDefault();
 
+   
+    navLinks.forEach(link => {
+      link.classList.remove("Active");
+    });
+
+   
+    this.classList.add("Active");
+
+  });
+});
+
+//////////////////////////////////////////////////////
 async function searchByAll(value){
    let response=await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`);
    response=await response.json(); 
@@ -45,21 +91,25 @@ function displayAllMeals(array){
             <div class="meal-layer text-black position-absolute">
                 <h3>${array[i].strMeal}</h3>
             </div>
+            <div class="mobile-layer rounded-3">
+                <h3>${array[i].strMeal.split(" ").slice(0,10).join(" ")}</h3>
+            </div>
         </div>
     </div>
         `
     }
-    document.getElementById("searchContainer").classList.add("padding-container");
     row.innerHTML=container;
 }
-searchByAll("");
+
 
 async function getCetagories(){
+    $('.inner-loading').fadeIn(500);
     searchInputsRow.innerHTML="";
     closeSidenav();
     let response=await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
     response=await response.json();
     displayCetagories(response.categories);
+    $('.inner-loading').fadeOut(500);
 }
 function displayCetagories(array){
     let container="";
@@ -76,17 +126,16 @@ function displayCetagories(array){
         </div>
         `
     }
-    document.getElementById("searchContainer").classList.add("padding-container");
-    document.getElementById("searchContainer").classList.remove('w-75');
-    document.getElementById("searchContainer").classList.add('w-100');
     row.innerHTML=container;
 }
 async function getArea(){
+    $('.inner-loading').fadeIn(500);
     searchInputsRow.innerHTML="";
     closeSidenav();
     let response=await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`);
     response=await response.json();
     displayAreaMeals(response.meals);
+    $('.inner-loading').fadeOut(500);
 }
 function displayAreaMeals(array){
   let container="";
@@ -100,17 +149,16 @@ function displayAreaMeals(array){
     </div>
     `
   }
-  document.getElementById("searchContainer").classList.add("padding-container");
-    document.getElementById("searchContainer").classList.add('w-75');
-    document.getElementById("searchContainer").classList.remove('w-100');
   row.innerHTML=container;
 }
 async function getIngredients(){
+    $('.inner-loading').fadeIn(500);
     searchInputsRow.innerHTML="";
     closeSidenav();
     let response=await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`);
     response=await response.json();
     displayIngredients(response.meals.slice(0, 20));
+    $('.inner-loading').fadeOut(500);
 }
 function displayIngredients(array){
   let container="";
@@ -125,34 +173,40 @@ function displayIngredients(array){
     </div>
     `
   }
-    document.getElementById("searchContainer").classList.add("padding-container");
-    document.getElementById("searchContainer").classList.add('w-75');
-    document.getElementById("searchContainer").classList.remove('w-100');
+    document.getElementById("searchContainer").classList.add("padding-container-details");
   row.innerHTML=container;
 }
 async function getCetagoriesMeals(category){
+    $('.inner-loading').fadeIn(500);
     closeSidenav();
     let response=await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
     response=await response.json();
     
     displayAllMeals(response.meals.slice(0, 20));
+    $('.inner-loading').fadeOut(500);
     
 }
 async function getAreaMeals(area){
+    $('.inner-loading').fadeIn(500);
     let response=await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
     response=await response.json();
     displayAllMeals(response.meals.slice(0, 20));
+    $('.inner-loading').fadeOut(500);
 }
 async function getIngredientsMeals(gredient){
+    $('.inner-loading').fadeIn(500);
     searchInputsRow.innerHTML="";
     let response=await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${gredient}`);
     response=await response.json();
     displayAllMeals(response.meals.slice(0, 20));
+    $('.inner-loading').fadeOut(500);
 }
 async function getMealDetails(id){
+    $('.inner-loading').fadeIn(500); 
   let response=await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   response=await response.json();
   displayMealDetails(response.meals[0]);
+  $('.inner-loading').fadeOut(500);
 }
 function displayMealDetails(meal){
     searchInputsRow.innerHTML="";
@@ -196,10 +250,6 @@ function displayMealDetails(meal){
         </div>
     
     `;
-
-    document.getElementById("searchContainer").classList.remove('w-75');
-    document.getElementById("searchContainer").classList.add('w-100');
-    document.getElementById("searchContainer").classList.remove('padding-container');
     row.innerHTML=container;
 }
 function displaySearchInputs(){
@@ -211,31 +261,27 @@ function displaySearchInputs(){
                 <input oninput="searchByName(this.value)" class="form-control bg-transparent  text-light" placeholder="Search By Name" type="text">
             </div>
             <div class="col-md-6">
-                <input oninput="searchByFirstLetter(this.value)"  maxlength="1" class="form-control bg-transparent text-light" placeholder="Search By First Letter" type="text">
+                <input onkeyup="searchByFirstLetter(this.value)"  maxlength="1" class="form-control bg-transparent text-light" placeholder="Search By First Letter" type="text">
             </div>
         </div>   
     `;
-    document.getElementById("searchContainer").classList.add("padding-container");
-    document.getElementById("searchContainer").classList.add('w-75');
-    document.getElementById("searchContainer").classList.remove('w-100');
     row.innerHTML=``;
    
 }
 async function searchByName(name){
-    
+    $('.inner-loading').fadeIn(500);
     row.innerHTML="";
-    document.getElementById("searchContainer").classList.add('w-75');
-    document.getElementById("searchContainer").classList.remove('w-100');
-    document.getElementById("searchContainer").classList.add("padding-container-details");
     searchByAll(name);
+    $('.inner-loading').fadeOut(500);
 }
 async function searchByFirstLetter(letter){
+   
     row.innerHTML="";
-    if(!letter)letter=="a";
+    if(!letter || letter===" ")letter=="a";
     let response=await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`);
     response=await response.json();
     response.meals ? displayAllMeals(response.meals) : displayAllMeals([]);
-  
+   
 }
 function displayContacts(){
     closeSidenav();
@@ -418,3 +464,8 @@ document.getElementById('Area').addEventListener('click',function(){getArea()});
 document.getElementById('Ingredients').addEventListener('click',function(){getIngredients()});
 document.getElementById('Search').addEventListener('click',function(){displaySearchInputs()});
 document.getElementById('Contacts').addEventListener('click',function(){displayContacts()});
+document.getElementById('Categories2').addEventListener('click',function(){getCetagories()});
+document.getElementById('Area2').addEventListener('click',function(){getArea()});
+document.getElementById('Ingredients2').addEventListener('click',function(){getIngredients()});
+document.getElementById('Search2').addEventListener('click',function(){displaySearchInputs()});
+document.getElementById('Contacts2').addEventListener('click',function(){displayContacts()});

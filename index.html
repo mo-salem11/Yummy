@@ -13,9 +13,9 @@
 </head>
 <body>
     
-    <!-- <div class="loading position-fixed top-0 start-0 end-0 bottom-0 bg-black w-100 vh-100 d-flex  justify-content-center align-items-center">
+    <div class="loading">
         <div class="loader"></div>
-    </div> -->
+    </div>
     
    <div  class="side-nav bg-black  min-vh-100 position-fixed d-flex top-0">
       <div class="nav-tab  d-flex flex-column justify-content-between p-4 min-vh-100 ">
@@ -48,40 +48,45 @@
             </div>
       </div>
    </div>
-   <div id="searchInputsRow" class="container  padding-container"> 
+   <nav class="navbar-bottom">
+    <ul>
+      <li id="Search2" class="list cursor-pointer">
+        <span class="icon"><i class="fa-duotone fa-magnifying-glass" style="--fa-primary-color: #FFD43B; --fa-secondary-color: #FFD43B;"></i></span>
+        <span class="text">Search</span>
+      </li>
+      <li id="Categories2" class="list cursor-pointer">
+        <span class="icon"><i class="fa-duotone fa-list" style="--fa-primary-color: #dbd542; --fa-secondary-color: #FFD43B;"></i></span>
+        <span class="text">Categories</span>
+      </li>
+      <li id="Area2" class="list cursor-pointer">
+          <span class="icon"><i class="fa-regular fa-globe" style="color: #FFD43B;"></i></span>
+          <span class="text">Area</span>
+      </li>
+      <li id="Ingredients2" class="list cursor-pointer">
+          <span class="icon"><i class="fa-solid fa-bowl-chopsticks-noodles" style="color: #FFD43B;"></i></span>
+          <span class="text">Ingredients</span>
+     </li>
+      <li id="Contacts2" class="list cursor-pointer">
+          <span class="icon"><i class="fa-duotone fa-user-tie" style="--fa-primary-color: #eeeb20; --fa-secondary-color: #eeeb20;"></i></span>
+          <span class="text">Contacts</span>
+     </li>
+     
+    </ul>
+  </nav>
+
+  <div class="position-relative min-vh-100">
+    <div class="inner-loading">
+        <div class="loader"></div>
+    </div>
+   <div id="searchInputsRow" class="container"> 
    </div>
-   <div class="container  mx-auto " id="searchContainer">
-       <div class="row my-5 g-4 padding-container" id="searchMealsRow">
+   <div class="container mx-auto " id="searchContainer">
+       <div class="row my-3 g-4" id="searchMealsRow">
        
        </div>
    </div>
+</div> 
    
-  
-    <!-- <div class="contact min-vh-100 d-flex align-items-center">
-        <div class="container  w-75">
-           <div class="row g-4">
-            <div class="col-md-6">
-                <input type="text" class="form-control" placeholder="Enter Your Name">
-            </div>
-            <div class="col-md-6">
-                <input type="gmail" class="form-control" placeholder="Enter Your Email">
-            </div>
-            <div class="col-md-6">
-                <input type="tel" class="form-control" placeholder="Enter Your Phone">
-            </div>
-            <div class="col-md-6">
-                <input type="number" class="form-control" placeholder="Enter Your Age">
-            </div>
-            <div class="col-md-6">
-                <input type="password" class="form-control" placeholder="Enter Your Password">
-            </div>
-            <div class="col-md-6">
-                <input type="password" class="form-control" placeholder="Enter Your Repassword">
-            </div>
-           </div>
-           <button class="btn btn-danger bg-transparent text-danger mt-3 d-block mx-auto">submit</button>
-        </div>
-    </div> -->
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>    

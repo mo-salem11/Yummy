@@ -1,6 +1,6 @@
 
 :root{
-    --main-color:#b1ae43;
+    --main-color:#ffc43b;
     scroll-behavior: smooth;
 }
 *{
@@ -102,7 +102,7 @@
     justify-content: space-around;
 }
 .navbar-bottom ul li {
-    padding:20px 10px 0;
+    padding:20px 6px 0;
     display: inline-block;
     display: flex;
     flex-direction: column;

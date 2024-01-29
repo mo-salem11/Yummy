@@ -98,6 +98,7 @@
     width:100%;
 }
 .navbar-bottom ul{
+    padding:0 3px;
     display:flex;
     justify-content: space-around;
 }
@@ -183,7 +184,7 @@
     left:0;
     width: 100%;
     height:4rem;
-    background-color: yellow;
+    background-color: orange;
     color:black;
     display: flex;
     justify-content: center;
